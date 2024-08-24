@@ -23,10 +23,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 const ctx = img.getContext('2d');
                 ctx.drawImage(imageBitmap, 0, 0);
 
-                const x = message.area.x * message.devicePixelRatio;
-                const y = message.area.y * message.devicePixelRatio;
-                const width = message.area.width * message.devicePixelRatio;
-                const height = message.area.height * message.devicePixelRatio;
+                // NOTE: 'capturedArea'의 좌표 정보는 'CSS 픽셀' 단위임.
+                const capturedArea = message.area;
+                const ratio = message.devicePixelRatio;
+                const x = capturedArea.x * ratio;
+                const y = capturedArea.y * ratio;
+                const width = capturedArea.width * ratio;
+                const height = capturedArea.height * ratio;
                 const canvas = new OffscreenCanvas(width, height);
                 const canvasCtx = canvas.getContext('2d');
                 canvasCtx.drawImage(
