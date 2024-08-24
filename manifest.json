@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Drag to Capture",
-    "version": "1.0",
+    "version": "0.1",
     "permissions": [
         "activeTab",
         "tabs",
@@ -9,6 +9,15 @@
     ],
     "background": {
         "service_worker": "background.js"
+    },
+    "commands": {
+        "capture_screen": {
+            "suggested_key": {
+                "windows": "Alt+Shift+D",
+                "mac": "Alt+Shift+D"
+            },
+            "description": "Capture the screen"
+        }
     },
     "action": {
         "default_popup": "popup.html"

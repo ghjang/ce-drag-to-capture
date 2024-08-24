@@ -1,3 +1,14 @@
+chrome.commands.onCommand.addListener((command) => {
+    if (command === 'capture_screen') {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            chrome.scripting.executeScript({
+                target: { tabId: tabs[0].id },
+                files: ['contentScript.js']
+            });
+        });
+    }
+});
+
 chrome.runtime.onMessage.addListener((message, sender) => {
     if (message.type === 'capture') {
         chrome.tabs.captureVisibleTab(sender.tab.windowId, { format: 'png' }, async (dataUrl) => {
